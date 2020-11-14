@@ -7,6 +7,7 @@ import Widgets from "./Widgets"
 import Login from "./Login"
 import { useStateValue } from './StateProvider';
 import Profile from './Profile';
+import Settings from './Settings';
 
 function App() {
 
@@ -29,13 +30,18 @@ function App() {
           <Header/>
 
           <div onClick= {() =>
-          {setAppState("settings")}}>
-            setttings
-          </div>
-          
-          <div onClick= {() =>
           {setAppState("newsfeed")}}>
             Newsfeed
+          </div>
+
+          <div onClick= {() =>
+          {setAppState("profile")}}>
+            Profile
+          </div>
+
+          <div onClick= {() =>
+          {setAppState("settings")}}>
+            Settings
           </div>
 
           {appState==='newsfeed' && 
@@ -45,16 +51,17 @@ function App() {
             <Widgets/>
           </div>}
 
+          {appState==="profile" &&
+            <div>
+              {user.displayName}
+              <Profile/>
+              </div>
+          }
+
           {appState==='settings' && 
           <div> 
-            settings component to be added here
-            <button onClick={() => {
-              user.updateProfile({
-                displayName: Math.random().toString()
-              })
-            }}>update</button>
+            <Settings/>
             <div>{user.displayName}</div> 
-            <Profile/>
             </div>}
 
         </div>

@@ -20,5 +20,5 @@ const firebaseConfig = {
   
   const provider = new firebase.auth.GoogleAuthProvider(); //Tells firebase we want google login service
 
-  export { auth, provider }; //This can be asked for
+  export { auth, provider, firebaseApp }; //This can be asked for
   export default db; //This is always

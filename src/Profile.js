@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import "../src/Profile.css"
 // import "../src/jquery-3.5.1"
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -7,41 +7,9 @@ import UHCL_Hawk from "./assets/UHCL_Hawk.png";
 import profile_placeholder from "../src/assets/profile_placeholder.png"
 
 
-
 function Profile() {
 
-    function tab0Change(event) {
-
-        
-        event.target.style.display = 'block';
-        console.log(event.target)
-    }
-    //const navCenterUlLi = document.click('.nav-center ul li');
-    
-    // const $ = window;
-
-
-//     $('.nav-center ul li').onClick(function() => {
-//         $(this).addClass("active").siblings().removeClass('active')
-//     })
-
-// // eslint-disable-next-line
-//  const tabBtn = document.querySelectorAll('.nav-center ul li');
-
-
-  
-
-//  function tabs({panelIndex}) {
-
-//     const tab = document.querySelectorAll('.tab');
-
-//     //  tab.forEach(function(node) {
-//     //      node.style.display = 'none';
-//     //  }) ;
-//     tab[{panelIndex}].style.display ='block';
-
-//      console.log('hello glorified toad')
-//  }
+    const [containerState, setContainerState] = useState(0)
 
     return (
         
@@ -110,24 +78,42 @@ function Profile() {
        
                     <div className="nav-center">
                         <ul>
-                            <li onClick={tab0Change} className="user-info active" >Personal Info</li>
-                            <li onClick='' className="user-classNamees">Enrolled classNamees</li>
-                            <li onClick='' className="user-sale">For Sale</li>
+                            <li onClick={() => {
+                                setContainerState(0)
+                            }} className="user-info active" >Personal Info</li>
+                            
+                            <li onClick={() => {
+                                setContainerState(1)
+                            }} className="user-classNamees">Enrolled Classes</li>
+                            
+                            <li onClick={() => {
+                                setContainerState(2)
+                            }} className="user-sale">For Sale</li>
                         </ul>
                     </div>
                     <div className="profile-body">
-                        <div className="profile-info tab">
+
+                    {containerState === 0 &&
+                        <div className="profile-info tab" style={{display: 'block'}}>
                             <h1>Peronal Information</h1>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam ex quam totam esse facere a nihil recusandae consequuntur quae veniam eaque veritatis velit, cum doloremque quo non rem aut placeat eum voluptates autem voluptate asperiores eveniet? Eveniet dolor itaque, doloremque veritatis id, earum harum quam natus libero labore perspiciatis! Nesciunt doloremque, culpa possimus magnam deserunt saepe dolorem quo aperiam consectetur? Expedita eveniet quia blanditiis ducimus exercitationem, fugiat tempora provident aperiam.</p>
                         </div>
-                        <div className="profile-classNamees tab">
-                            <h1>Enrolled classNamees</h1>
+                    }
+                        
+                    {containerState === 1 &&
+                        <div className="profile-classNamees tab" style={{display: 'block'}}>
+                            <h1>Enrolled Classes</h1>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, esse?</p>
                         </div>
-                        <div className="profile-sale tab">
+                    }
+                        
+                    {containerState === 2 &&
+                        <div className="profile-sale tab" style={{display: 'block'}}>
                             <h1>For Sale/Looking For</h1>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, nesciunt.</p>
                         </div>
+                    }
+                        
                     </div>
                 </div>
             </div>
