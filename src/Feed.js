@@ -28,7 +28,7 @@ function Feed() {
     return (
         <div className="feed">
             {/*StoryReel  */}
-            <StoryReel/>
+            {/* <StoryReel/> */}
             {/* MessageSender */}
             <MessageSender/>
 
@@ -43,7 +43,16 @@ function Feed() {
                     username={post.data.username}
                     image={post.data.image}
                 />
+ 
             ))}
+            {/* <Post
+                key='123'
+                profilePic=""
+                message="helloWorld"
+                timestamp=""
+                username="SeanNguyen1234"
+                image=""
+            /> */}
 {/*             
             
             <Post

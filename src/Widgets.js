@@ -1,16 +1,23 @@
-import React from 'react'
-import './Widgets.css'
+import React from "react";
+import "./Widgets.css";
 
-function Widget() {
-    return (
-    <div className="widgets">
-        <a class="twitter-timeline" href="https://twitter.com/UHClearLake?ref_src=twsrc%5Etfw">Tweets by UHClearLake</a> 
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>        
+function Widgets(){
+    return <div className="widgets">
+      <iframe
+        src="https://www.uhcl.edu/news-events/"
+
+        width="340"
+        height="1000"
+        style={{ border:"none", overflow:"hidden"}}
+        scrolling="yes"
+        frameborder="0"
+        allowTransparency="true"
+        allow="encrypted-media"
+      ></iframe>
     </div>
-    )
 }
 
-export default Widget
+export default Widgets;
 //2:44:44
 // https://www.facebook.com/
 // plugs/page.php?

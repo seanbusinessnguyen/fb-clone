@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Login.css"
 import Shawn_white from "./assets/Shawn_white.png"
 import Button from '@material-ui/core/Button';
@@ -13,6 +13,8 @@ import Profile_Icon from "./assets/profile-icon.png";
 
 function Login() {
 
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [state, dispatch] = useStateValue();
 
     const signIn = () => {
@@ -48,6 +50,50 @@ function Login() {
         btn.style.left = "0px";
     }
 
+
+     function signUp() {
+        var email = document.getElementById("createEmail");
+    
+        var password = document.getElementById("createPassword");
+    
+        const promise = auth.createUserWithEmailAndPassword(email.value, password.value);
+        promise.catch(e => alert(e.message));
+     }
+
+     function signInEmail(){
+        var email = document.getElementById("loginEmail");
+        var password = document.getElementById("loginPassword");
+    
+        const promise = auth.signInWithEmailAndPassword(email.value, password.value);
+        promise.catch(e => alert(e.message));
+        //console.log(email.value)
+        //console.log(password.value)
+     }
+
+     auth.onAuthStateChanged(function(userLogin) {
+        //signed in
+        if (userLogin)  {
+            
+            // console.log(firstName, lastName)
+
+            // userLogin.updateProfile({
+            //     displayName: firstName + ' ' + lastName
+            //   })
+              
+              
+              //console.log(firstName, lastName)
+
+            dispatch( {
+                type: actionTypes.SET_USER,
+                user: userLogin,
+            })
+            console.log(userLogin)
+        }
+        else {
+            //console.log('none')
+        }
+    })
+
     return (
         <div class="hero">
             <div class="form-box">
@@ -62,21 +108,25 @@ function Login() {
                     <a href="https://www.facebook.com/UHClearLake/" target="_blank"><img src={FB_icon}/></a>
                     <a href="/loginPage2/profile.html" target="_blank"><img src={Profile_Icon}/></a>
                 </div>
-                <form id="login" class="input-group">
-                    <input type="email" class="input-field" placeholder="UHCL Email" required/>
-                    <input type="password" class="input-field" placeholder="Password" required/>
+                <div id="login" class="input-group">
+                    <input type="email" class="input-field" placeholder="UHCL Email" required id="loginEmail"/>
+                    <input type="password" class="input-field" placeholder="Password" required id="loginPassword"/>
                     <input type="checkbox" class="check-box"/><span>Remember Password</span>
-                    <button type="submit" class="submit-btn">Log in</button>
-                    <Button type="submit" onClick={signIn}>Sign In</Button>
-                </form>
-                <form id="register" class="input-group">
-                    <input type="text" class="input-field" placeholder="First Name" required/>
-                    <input type="text" class="input-field" placeholder="Last Name" required/>
-                    <input type="email" class="input-field" placeholder="UHCL Email" required/>
-                    <input type="password" class="input-field" placeholder="Password" required/>
+                    <button class="submit-btn" onClick={signInEmail}>Log in</button>
+                    <Button onClick={signIn}>Sign In</Button>
+                </div>
+                <div id="register" class="input-group">
+                    <input type="text" class="input-field" value={firstName} placeholder="First Name" required id="firstName" onChange={(event) => {
+                        setFirstName(event.target.value)
+                    }}/>
+                    <input type="text" class="input-field" placeholder="Last Name" value={lastName} required id="lastName" onChange={(event) => {
+                        setLastName(event.target.value)
+                    }}/>
+                    <input type="email" class="input-field" placeholder="UHCL Email" required id="createEmail"/>
+                    <input type="password" class="input-field" placeholder="Password" required id="createPassword"/>
                     <input type="checkbox" class="check-box" required/><span>I agree to the <a href="/loginPage2/ToS.html" target="_blank" style={{color: "dodgerblue"}}> Terms & Conditions</a></span>
-                    <button type="submit" class="submit-btn">Register</button>
-                </form>
+                    <button type="submit" class="submit-btn" onClick={signUp}>Register</button>
+                </div>
             </div>
         </div>  
     )

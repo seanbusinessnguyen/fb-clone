@@ -13,7 +13,7 @@ function App() {
   
   //Object/State to keep track of current page/component to load
   //Reload the components - so some stuff will need to be saved
-  const [appState, setAppState] = useState("login");
+  const [appState, setAppState] = useState("newsfeed");
 
 
 
@@ -33,11 +33,11 @@ function App() {
           </div>
           
           <div onClick= {() =>
-          {setAppState("login")}}>
-            Login
+          {setAppState("newsfeed")}}>
+            Newsfeed
           </div>
 
-          {appState==='login' && 
+          {appState==='newsfeed' && 
           <div className="app__body">
             <Sidebar/>
             <Feed/>
@@ -46,14 +46,17 @@ function App() {
 
           {appState==='settings' && 
           <div> 
-            settings component to be added here 
+            settings component to be added here
+            <button onClick={() => {
+              user.updateProfile({
+                displayName: "testfirst testlast"
+              })
+            }}>update</button>
+            <div>{user.displayName}</div> 
             </div>}
 
         </div>
         ) }
-      
-    
-
     </div>
     
   );

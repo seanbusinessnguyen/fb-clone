@@ -1,84 +1,83 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import "./Header.css";
-import Shawn_white from "./assets/Shawn_white.png"
 import SearchIcon from '@material-ui/icons/Search';
-import HomeIcon from '@material-ui/icons/Home';
-import FlagIcon from '@material-ui/icons/Flag';
-import SubscriptionsOutlinedIcon from '@material-ui/icons/SubscriptionsOutlined';
-import StorefrontOutlinedIcon from '@material-ui/icons/StorefrontOutlined';
-import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
-import { Avatar, IconButton } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import ForumIcon from '@material-ui/icons/Forum';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {useStateValue} from './StateProvider'
-import Login from './Login';
+import { Avatar, IconButton } from "@material-ui/core";
+import ForumIcon from "@material-ui/icons/Forum";
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
+import { useStateValue } from './StateProvider';
+import {auth} from "./firebase"
+import firebase from 'firebase'
+import {actionTypes} from "./reducer"
 
 function Header() {
 
     const [{user}, dispatch] = useStateValue();
 
+    // console.log({user})
+
     const [appState, setAppState] = useState("login");
 
+   function signOutHeader() {
+        firebase.auth().signOut()
+        .then(function() {
+            dispatch( {
+                type: actionTypes.SET_USER,
+                user: null,
+            })
+            })
+            .catch(function(error) {
+            // An error happened.
+            });
+    }
+
     return (
-        <div className="header">
-            <div className="header__left">
-                <img id ="header__Shawn_white" src={Shawn_white} alt="hawk"/>
-
-                <div className="header__input">
-                    <SearchIcon />
-                    <input type="text" placeholder="Search Facebook"/>
+    <div className="header">
+        <div className="header__left">
+            <div class="menu-wrap">
+                <input type="checkbox" className="toggler" />
+                <div className="hamburger"><div></div></div>
+                <div className="menu">
+                    <div>
+                        <div>
+                            <ul>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li><a onClick={signOutHeader}>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div className="header__middle">
-                <div className="header__option header__option--active">
-                    <HomeIcon fontSize="large" />
-                </div>
-                <div className="header__option" onClick={() => {
-                    setAppState("Flag")
-                }}>
-                    <FlagIcon fontSize="large" />
-                </div>
-                <div className="header__option">
-                    <SubscriptionsOutlinedIcon fontSize="large" />
-                </div>
-                <div className="header__option">
-                    <StorefrontOutlinedIcon fontSize="large" />
-                </div>
-                <div className="header__option">
-                    <SupervisedUserCircleIcon fontSize="large" />
-                </div>
-            </div>
-            
-            {appState==="login" && <div>test login</div>}
-            {appState==="Flag" && <div>test flag</div>}
-
-            <div className="header__right">
-                <div className="header__info">
-                    <Avatar src={user.photoURL}/>
-                    <h4>{user.displayName}</h4>
-                </div>
-
-                <IconButton>
-                    <AddIcon/>
-                </IconButton>
-                
-                <IconButton>
-                    <ForumIcon/>
-                </IconButton>
-                
-                <IconButton>
-                    <NotificationsActiveIcon/>
-                </IconButton>
-
-                <IconButton>
-                    <ExpandMoreIcon/>
-                </IconButton>
             </div>
         </div>
-    )
+            
+            
+        <div className="header__center">
+            <div className="header__input">
+                <SearchIcon />
+                <input placeholder="Search NewsFeed" type="text" />
+            </div>
+        </div>
+
+
+        <div className="header__right">
+            <div className="header__info">
+                <Avatar src={user.photoURL}/>
+                <h4>{user.displayName}</h4>
+            </div>
+
+            <IconButton>
+                <ForumIcon />
+            </IconButton>
+            <IconButton>
+                <NotificationsActiveIcon />
+            </IconButton>
+
+        </div>
+            
+    </div>
+    
+    );
+    
 }
 
 export default Header
