@@ -6,6 +6,7 @@ import Feed from "./Feed"
 import Widgets from "./Widgets"
 import Login from "./Login"
 import { useStateValue } from './StateProvider';
+import Profile from './Profile';
 
 function App() {
 
@@ -49,10 +50,11 @@ function App() {
             settings component to be added here
             <button onClick={() => {
               user.updateProfile({
-                displayName: "testfirst testlast"
+                displayName: Math.random().toString()
               })
             }}>update</button>
             <div>{user.displayName}</div> 
+            <Profile/>
             </div>}
 
         </div>

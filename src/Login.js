@@ -55,9 +55,15 @@ function Login() {
         var email = document.getElementById("createEmail");
     
         var password = document.getElementById("createPassword");
-    
-        const promise = auth.createUserWithEmailAndPassword(email.value, password.value);
-        promise.catch(e => alert(e.message));
+
+        if (email.value.search('@UHCL.edu') != -1) {
+            const promise = auth.createUserWithEmailAndPassword(email.value, password.value);
+            promise.catch(e => alert(e.message));
+        }
+        else {
+            alert('Please enter in a valid UHCL email using @UHCL.edu')
+        }
+        
      }
 
      function signInEmail(){
@@ -73,21 +79,12 @@ function Login() {
      auth.onAuthStateChanged(function(userLogin) {
         //signed in
         if (userLogin)  {
-            
-            // console.log(firstName, lastName)
-
-            // userLogin.updateProfile({
-            //     displayName: firstName + ' ' + lastName
-            //   })
-              
-              
-              //console.log(firstName, lastName)
 
             dispatch( {
                 type: actionTypes.SET_USER,
                 user: userLogin,
             })
-            console.log(userLogin)
+            //console.log(userLogin)
         }
         else {
             //console.log('none')
