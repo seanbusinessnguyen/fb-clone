@@ -8,6 +8,7 @@ import { useStateValue } from './StateProvider';
 import {auth} from "./firebase"
 import firebase from 'firebase'
 import {actionTypes} from "./reducer"
+import Menu from './Menu'
 
 function Header() {
 
@@ -31,53 +32,40 @@ function Header() {
     }
 
     return (
-    <div className="header">
-        <div className="header__left">
-            <div class="menu-wrap">
-                <input type="checkbox" className="toggler" />
-                <div className="hamburger"><div></div></div>
-                <div className="menu">
-                    <div>
-                        <div>
-                            <ul>
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Settings</a></li>
-                                <li><a onClick={signOutHeader}>Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
+        <div className="header">
+            <div className="header__left">
+                <Menu />
+            </div>
+                
+                
+            <div className="header__center">
+                <div className="header__input">
+                    <SearchIcon />
+                    <input placeholder="Search NewsFeed" type="text" />
                 </div>
             </div>
-        </div>
-            
-            
-        <div className="header__center">
-            <div className="header__input">
-                <SearchIcon />
-                <input placeholder="Search NewsFeed" type="text" />
-            </div>
-        </div>
-
-
-        <div className="header__right">
-            <div className="header__info">
-                <Avatar src={user.photoURL}/>
-                <h4>{user.displayName}</h4>
-            </div>
-
-            <IconButton>
-                <ForumIcon />
-            </IconButton>
-            <IconButton>
-                <NotificationsActiveIcon />
-            </IconButton>
-
-        </div>
-            
-    </div>
     
-    );
     
-}
-
-export default Header
+            <div className="header__right">
+                <div className="header__info">
+                    <Avatar />
+                    <h4>{user.displayName}</h4>
+                </div>
+    
+                <IconButton>
+                    <ForumIcon />
+                </IconButton>
+                <IconButton>
+                    <NotificationsActiveIcon />
+                </IconButton>
+    
+            </div>
+                
+        </div>
+        
+        );
+        
+    }
+    
+    export default Header
+    
