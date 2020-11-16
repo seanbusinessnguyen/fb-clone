@@ -69,7 +69,7 @@ function Login() {
      function signInEmail(){
         var email = document.getElementById("loginEmail");
         var password = document.getElementById("loginPassword");
-    
+        
         const promise = auth.signInWithEmailAndPassword(email.value, password.value);
         promise.catch(e => alert(e.message));
         //console.log(email.value)

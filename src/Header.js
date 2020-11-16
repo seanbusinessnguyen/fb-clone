@@ -10,13 +10,9 @@ import firebase from 'firebase'
 import {actionTypes} from "./reducer"
 import Menu from './Menu'
 
-function Header() {
+function Header({testFunction: test, appState}) {
 
     const [{user}, dispatch] = useStateValue();
-
-    // console.log({user})
-
-    const [appState, setAppState] = useState("login");
 
    function signOutHeader() {
         firebase.auth().signOut()
@@ -31,10 +27,11 @@ function Header() {
             });
     }
 
-    return (
+    return (    
         <div className="header">
             <div className="header__left">
-                <Menu />
+                <Menu testFunction = {test}
+                    appState = {appState} />
             </div>
                 
                 
